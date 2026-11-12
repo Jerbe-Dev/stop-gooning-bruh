@@ -1,12 +1,12 @@
 {
   "public": true,
   "currentStreakDays": 0,
-  "startDate": "2026-11-11T16:00:00.000Z",
+  "startDate": "2026-11-12",
   "milestones": [],
   "totalRelapses": 0,
   "daysWithSlip": 0,
   "totalWonUrges": 0,
   "totalCheckins": 0,
   "checkinDates": [],
-  "updatedAt": "2026-11-12T04:07:45.179Z"
+  "updatedAt": "2026-11-12"
 }
