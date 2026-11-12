@@ -94,18 +94,18 @@
 <script>
 (function(){
 'use strict';
-var el=document.getElementById('progress'),month=new Date(new Date().getFullYear(),new Date().getMonth(),1),payload=null,selectedDay=key(new Date());
+var el=document.getElementById('progress'),todayParts=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Manila',year:'numeric',month:'numeric'}).formatToParts(new Date()),todayPart=function(t){return Number(todayParts.find(function(x){return x.type===t;}).value);},month=new Date(Date.UTC(todayPart('year'),todayPart('month')-1,1,12)),payload=null,selectedDay=key(new Date());
 var checkins={},slips={},won={};
 var MOODS=['Rough','Low','Okay','Good','Great'];
-function key(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function key(d){var p=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Manila',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d),v=function(t){return p.find(function(x){return x.type===t;}).value;};return v('year')+'-'+v('month')+'-'+v('day');}
 function date(v){var d=/^\d{4}-\d{2}-\d{2}$/.test(String(v))?new Date(v+'T00:00:00+08:00'):new Date(v);return isNaN(d)?'':d.toLocaleDateString(undefined,{timeZone:'Asia/Manila',month:'long',day:'numeric',year:'numeric'});}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 function clock(v){var d=new Date(Number(v));return isNaN(d)?'Time unavailable':d.toLocaleTimeString(undefined,{timeZone:'Asia/Manila',hour:'numeric',minute:'2-digit'});}
 function countOn(map,k){return (map[k]||[]).length;}
 function renderCalendar(){
-var first=new Date(month.getFullYear(),month.getMonth(),1),offset=(first.getDay()+6)%7,start=new Date(first.getFullYear(),first.getMonth(),1-offset),cells='';
+var first=new Date(Date.UTC(month.getUTCFullYear(),month.getUTCMonth(),1,12)),offset=(first.getUTCDay()+6)%7,start=new Date(Date.UTC(first.getUTCFullYear(),first.getUTCMonth(),1-offset,12)),cells='';
 for(var i=0;i<42;i++){
- var d=new Date(start.getFullYear(),start.getMonth(),start.getDate()+i),k=key(d),inside=d.getMonth()===month.getMonth();
+ var d=new Date(start.getTime()+i*86400000),k=key(d),inside=d.getUTCMonth()===month.getUTCMonth();
  var sc=countOn(slips,k),wc=countOn(won,k),checked=!!checkins[k];
  var cls='public-cal-day'+(!inside?' outside':'')+(checked?' checked-in':'')+(k===selectedDay?' selected':'');
  var marks='';
@@ -113,9 +113,9 @@ for(var i=0;i<42;i++){
  if(wc)marks+='<span class="activity-mark won"><i></i>'+(wc>1?wc:'')+'</span>';
  cells+='<button type="button" class="'+cls+'" data-day="'+k+'" aria-pressed="'+(k===selectedDay)+'" aria-label="'+k+(checked?', checked in':'')+', '+sc+' slips, '+wc+' won urges"><span>'+d.getDate()+'</span><span class="activity-marks">'+marks+'</span></button>';
 }
-var title=month.toLocaleDateString(undefined,{month:'long',year:'numeric'}),node=document.getElementById('publicCalendar');
+var title=new Intl.DateTimeFormat(undefined,{month:'long',year:'numeric',timeZone:'UTC'}).format(month),node=document.getElementById('publicCalendar');
 node.innerHTML='<div class="public-cal-head"><button class="public-cal-nav" type="button" data-month="-1" aria-label="Previous month">‹</button><h3>'+title+'</h3><button class="public-cal-nav" type="button" data-month="1" aria-label="Next month">›</button></div><div class="public-cal-grid">'+['M','T','W','T','F','S','S'].map(function(x){return '<div class="public-cal-week">'+x+'</div>';}).join('')+cells+'</div><div class="public-legend"><span><i class="check-key"></i>Checked in</span><span><i></i>Slip</span><span><i class="won-key"></i>Won urge</span></div>';
-node.querySelectorAll('[data-month]').forEach(function(b){b.addEventListener('click',function(){month.setMonth(month.getMonth()+Number(b.dataset.month));selectedDay=key(new Date(month.getFullYear(),month.getMonth(),1));renderCalendar();renderSelectedDay();});});
+node.querySelectorAll('[data-month]').forEach(function(b){b.addEventListener('click',function(){month.setUTCMonth(month.getUTCMonth()+Number(b.dataset.month));selectedDay=key(new Date(Date.UTC(month.getUTCFullYear(),month.getUTCMonth(),1,12)));renderCalendar();renderSelectedDay();});});
 node.querySelectorAll('[data-day]').forEach(function(b){b.addEventListener('click',function(){selectedDay=b.dataset.day;renderCalendar();renderSelectedDay();});});
 }
 function checkinMarkup(c){
@@ -124,7 +124,7 @@ return '<details class="timeline-details"><summary>View full check-in</summary><
 }
 function renderSelectedDay(){
 var node=document.getElementById('selectedDay');if(!node)return;
-var d=new Date(selectedDay+'T12:00:00+08:00'),daySlips=slips[selectedDay]||[],dayWon=won[selectedDay]||[],check=checkins[selectedDay]||null,events=[];
+var d=new Date(selectedDay+'T12:00:00Z'),daySlips=slips[selectedDay]||[],dayWon=won[selectedDay]||[],check=checkins[selectedDay]||null,events=[];
 daySlips.forEach(function(x){events.push({type:'slip',t:Number(x.t)});});
 dayWon.forEach(function(x){events.push({type:'won',t:Number(x.t)});});
 if(check)events.push({type:'checkin',t:Number(check.t),record:check});
@@ -133,7 +133,7 @@ var timeline=events.length?'<ol class="timeline">'+events.map(function(e){
 var label=e.type==='slip'?'Slip':e.type==='won'?'Won urge':'Check-in';
 return '<li class="timeline-item '+e.type+'"><div class="timeline-head"><span class="timeline-time">'+clock(e.t)+'</span><span class="timeline-title">'+label+'</span></div>'+(e.type==='checkin'?checkinMarkup(e.record):'')+'</li>';
 }).join('')+'</ol>':'<p class="timeline-empty">No activity recorded for this day.</p>';
-node.innerHTML='<h3>'+d.toLocaleDateString(undefined,{timeZone:'Asia/Manila',weekday:'long',month:'long',day:'numeric',year:'numeric'})+'</h3><div class="day-counts"><div class="day-count"><strong>'+daySlips.length+'</strong><span>Slips</span></div><div class="day-count"><strong>'+dayWon.length+'</strong><span>Won urges</span></div><div class="day-count"><strong>'+(check?1:0)+'</strong><span>Check-in</span></div></div><h4 style="font-size:14px;margin:17px 0 0">Daily activity</h4>'+timeline;
+node.innerHTML='<h3>'+d.toLocaleDateString(undefined,{timeZone:'UTC',weekday:'long',month:'long',day:'numeric',year:'numeric'})+'</h3><div class="day-counts"><div class="day-count"><strong>'+daySlips.length+'</strong><span>Slips</span></div><div class="day-count"><strong>'+dayWon.length+'</strong><span>Won urges</span></div><div class="day-count"><strong>'+(check?1:0)+'</strong><span>Check-in</span></div></div><h4 style="font-size:14px;margin:17px 0 0">Daily activity</h4>'+timeline;
 }
 function renderProgress(p){
 if(!p||p.public!==true)throw new Error('not published');
