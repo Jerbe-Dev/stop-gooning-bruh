@@ -1,0 +1,18 @@
+{
+  "name": "Goon Logbook",
+  "short_name": "Goon Logbook",
+  "description": "Free streak tracker with an urge mode and distraction picker.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
