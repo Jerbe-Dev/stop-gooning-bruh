@@ -20,8 +20,7 @@
 .public-ring-arc{fill:none;stroke:var(--accent);stroke-width:8;stroke-linecap:round;stroke-dasharray:339.292;stroke-dashoffset:0}
 .public-ring-mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
 .public-number{font:700 clamp(54px,15vw,70px)/1 var(--display);font-variant-numeric:tabular-nums;letter-spacing:-.06em}
-.public-unit{font-size:13px;color:var(--muted)}
-.public-start{font-size:13px;color:var(--muted)}
+.public-unit,.public-start{font-size:13px;color:var(--muted)}
 .public-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:12px}
 .public-stat{min-width:0;padding:12px 5px;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:13px}
 .public-stat strong{display:block;font:700 clamp(21px,6vw,28px)/1.1 var(--display);font-variant-numeric:tabular-nums}
@@ -33,99 +32,117 @@
 .public-cal-nav{width:40px;height:40px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);color:var(--fg);font-size:27px;line-height:1;display:grid;place-items:center}
 .public-cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
 .public-cal-week{text-align:center;font-size:11px;color:var(--muted);padding:4px 0}
-.public-cal-day{position:relative;aspect-ratio:auto;min-height:48px;padding:0 0 14px;border:0;border-radius:9px;background:var(--surface2);color:var(--muted);display:grid;place-items:center;font-size:12px;cursor:pointer;overflow:visible}
-.public-cal-day.outside{visibility:hidden}
-.public-cal-day.slip{background:var(--urge);color:var(--urge-ink);font-weight:700}
+.public-cal-day{position:relative;min-height:52px;padding:5px 1px 4px;border:0;border-radius:9px;background:var(--surface2);color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:5px;font-size:12px;cursor:pointer;overflow:visible}
+.public-cal-day.checked-in{background:#5c5959;color:#c9c7c7}
 .public-cal-day.selected{outline:2px solid var(--fg);outline-offset:2px;color:var(--fg);font-weight:700}
-.public-cal-day.slip.selected{color:var(--urge-ink)}
-.public-cal-day .marks{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;gap:2px;z-index:2;white-space:nowrap}
-.public-cal-day .marks i{width:13px;height:13px;border-radius:50%;display:grid;place-items:center;font:700 8px/1 var(--body);font-style:normal;font-variant-numeric:tabular-nums;background:var(--muted);color:var(--bg)}
-.public-cal-day .marks .slip-mark{background:var(--urge);color:var(--urge-ink)}
-.public-cal-day .marks .urge-mark{background:var(--accent);color:var(--accent-ink)}
-.public-cal-day.slip .marks i{box-shadow:0 0 0 1px var(--surface)}
+.public-cal-day.outside{visibility:hidden}
+.public-cal-day .activity-marks{display:flex;align-items:center;justify-content:center;gap:5px;min-height:12px;white-space:nowrap}
+.public-cal-day .activity-mark{display:inline-flex;align-items:center;gap:2px;font-size:9px;line-height:1;color:var(--fg);font-variant-numeric:tabular-nums}
+.public-cal-day .activity-mark i{width:7px;height:7px;border-radius:50%;display:inline-block;background:#000;box-shadow:0 0 0 1px #c9c7c7}
+.public-cal-day .activity-mark.won i{background:#c9c7c7;box-shadow:0 0 0 1px #5c5959}
 .public-cal-day:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.public-legend{display:flex;flex-wrap:wrap;gap:7px 14px;margin-top:12px;font-size:11px;color:var(--muted)}
+.public-legend{display:flex;flex-wrap:wrap;gap:8px 15px;margin-top:12px;font-size:11px;color:var(--muted)}
 .public-legend span{display:inline-flex;align-items:center;gap:6px}
-.public-legend i{width:9px;height:9px;border-radius:3px;background:#000000;display:inline-block}
-.public-legend .check-key{background:var(--muted);border-radius:50%}
-.public-legend .urge-key{background:#c9c7c7;border-radius:50%}
+.public-legend i{width:8px;height:8px;border-radius:50%;background:#000;box-shadow:0 0 0 1px #c9c7c7}
+.public-legend .won-key{background:#c9c7c7;box-shadow:0 0 0 1px #5c5959}
+.public-legend .check-key{width:13px;height:13px;border-radius:3px;background:#5c5959;box-shadow:none}
 .selected-day{border-top:1px solid var(--line);margin-top:14px;padding-top:14px}
-.selected-day h3{font-size:15px;margin-bottom:10px}
+.selected-day h3{font-size:16px;margin-bottom:10px}
 .day-counts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .day-count{background:var(--bg);border:1px solid var(--line);border-radius:11px;padding:10px 5px;text-align:center}
 .day-count strong{display:block;font:700 23px/1.1 var(--display);font-variant-numeric:tabular-nums}
 .day-count span{display:block;font-size:10px;color:var(--muted);margin-top:4px}
-.public-milestones{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
-.public-milestones li{padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:13px}
-.public-milestones strong{color:var(--accent);font-size:12px}
-.public-foot{color:var(--muted);font-size:11px;line-height:1.5;text-align:center;margin-top:18px}
-.public-updated{color:var(--muted);font-size:11px;margin-top:12px}
-.public-error{padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
-
-.checkin-list{display:grid;gap:12px;margin-top:12px}
-.checkin-entry{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:13px}
-.checkin-entry-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.checkin-entry-title{font-size:14px;font-weight:700}
-.checkin-entry-time{font-size:11px;color:var(--muted);white-space:nowrap}
-.checkin-topline{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.checkin-mood{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:var(--surface2);font-size:11px;font-weight:700;letter-spacing:.04em}
-.checkin-urge-value{font:700 17px var(--display);font-variant-numeric:tabular-nums}
+.timeline{list-style:none;margin:16px 0 0;padding:0 0 0 5px;display:grid;gap:0}
+.timeline-item{position:relative;margin-left:8px;padding:0 0 18px 22px;border-left:1px solid var(--line)}
+.timeline-item:last-child{border-left-color:transparent;padding-bottom:0}
+.timeline-item:before{content:"";position:absolute;left:-5px;top:4px;width:9px;height:9px;border-radius:50%;background:#c9c7c7;border:1px solid #5c5959}
+.timeline-item.slip:before{background:#000;border-color:#c9c7c7}
+.timeline-item.checkin:before{background:#969393;border-color:#c9c7c7}
+.timeline-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.timeline-time{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.timeline-title{font-size:13px;font-weight:700}
+.timeline-details{margin-top:10px;background:var(--bg);border:1px solid var(--line);border-radius:13px;padding:12px}
+.timeline-details summary{cursor:pointer;font-size:12px;font-weight:700;color:var(--fg)}
+.checkin-body{display:grid;gap:12px;margin-top:12px}
+.checkin-topline{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.checkin-mood{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:var(--surface2);font-size:11px;font-weight:700}
+.checkin-urge-value{font:700 16px var(--display);font-variant-numeric:tabular-nums}
 .checkin-meter{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px}
 .checkin-meter i{height:6px;border-radius:99px;background:var(--surface2)}
 .checkin-meter i.filled{background:var(--accent)}
 .checkin-detail-label{font-size:10px;letter-spacing:.08em;font-weight:700;color:var(--muted);margin-bottom:7px}
 .checkin-tags{display:flex;flex-wrap:wrap;gap:6px}
 .checkin-tag{padding:5px 9px;border:1px solid var(--line);border-radius:999px;background:var(--surface2);font-size:11px;color:var(--fg)}
-.checkin-note{font-size:14px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
-.checkin-empty{font-size:13px;color:var(--muted);padding:12px 0}
+.checkin-note{font-size:13px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+.timeline-empty{font-size:13px;color:var(--muted);padding:16px 0}
+.public-milestones{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
+.public-milestones li{padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:13px}
+.public-milestones strong{color:var(--accent);font-size:12px}
+.public-foot{color:var(--muted);font-size:11px;line-height:1.5;text-align:center;margin-top:18px}
+.public-updated{color:var(--muted);font-size:11px;margin-top:12px}
+.public-error{padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
 @media(max-width:380px){.public-stats{gap:5px}.public-stat{padding:10px 2px}.public-stat span{font-size:9px}.public-card{padding:15px}.public-cal-grid{gap:4px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
-
-/* Calendar markers: black for slips, light for won urges */
-.public-cal-day .marks .slip-mark{background:#000000;color:#c9c7c7}
-.public-cal-day .marks .urge-mark{background:#c9c7c7;color:#000000}
 </style>
 </head>
 <body>
 <main class="public-wrap">
 <header class="public-head"><div><span class="public-mark">Goon Logbook</span><h1>Your progress.</h1><p>One day at a time.</p></div></header>
 <section id="progress" aria-live="polite"><p class="muted">Loading progress…</p></section>
-<p class="public-foot">Progress totals and check-in dates are public to anyone with this link.</p>
+<p class="public-foot">Slip times, won-urge times, and complete daily check-ins are public to anyone with this link. Slip notes and triggers are not published.</p>
 </main>
 <script>
 (function(){
 'use strict';
 var el=document.getElementById('progress'),month=new Date(new Date().getFullYear(),new Date().getMonth(),1),payload=null,selectedDay=key(new Date());
-var checkinDays={};
+var checkins={},slips={},won={};
+var MOODS=['Rough','Low','Okay','Good','Great'];
 function key(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function date(v){var d=/^\d{4}-\d{2}-\d{2}$/.test(String(v))?new Date(v+'T00:00:00+08:00'):new Date(v);return isNaN(d)?'':d.toLocaleDateString(undefined,{timeZone:'Asia/Manila',month:'long',day:'numeric',year:'numeric'});}
-function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-function countOn(map,k){return map[k]||0;}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function clock(v){var d=new Date(Number(v));return isNaN(d)?'Time unavailable':d.toLocaleTimeString(undefined,{timeZone:'Asia/Manila',hour:'numeric',minute:'2-digit'});}
+function countOn(map,k){return (map[k]||[]).length;}
 function renderCalendar(){
 var first=new Date(month.getFullYear(),month.getMonth(),1),offset=(first.getDay()+6)%7,start=new Date(first.getFullYear(),first.getMonth(),1-offset),cells='';
 for(var i=0;i<42;i++){
- var d=new Date(start.getFullYear(),start.getMonth(),start.getDate()+i),k=key(d),inside=d.getMonth()===month.getMonth(),checkins=countOn(checkinDays,k);
- var cls='public-cal-day'+(!inside?' outside':'')+(k===selectedDay?' selected':'');
+ var d=new Date(start.getFullYear(),start.getMonth(),start.getDate()+i),k=key(d),inside=d.getMonth()===month.getMonth();
+ var sc=countOn(slips,k),wc=countOn(won,k),checked=!!checkins[k];
+ var cls='public-cal-day'+(!inside?' outside':'')+(checked?' checked-in':'')+(k===selectedDay?' selected':'');
  var marks='';
- cells+='<button type="button" class="'+cls+'" data-day="'+k+'" aria-pressed="'+(k===selectedDay)+'" aria-label="'+k+', '+checkins+' check-ins">'+d.getDate()+(marks?'<span class="marks">'+marks+'</span>':'')+'</button>';
+ if(sc)marks+='<span class="activity-mark slip"><i></i>'+(sc>1?sc:'')+'</span>';
+ if(wc)marks+='<span class="activity-mark won"><i></i>'+(wc>1?wc:'')+'</span>';
+ cells+='<button type="button" class="'+cls+'" data-day="'+k+'" aria-pressed="'+(k===selectedDay)+'" aria-label="'+k+(checked?', checked in':'')+', '+sc+' slips, '+wc+' won urges"><span>'+d.getDate()+'</span><span class="activity-marks">'+marks+'</span></button>';
 }
 var title=month.toLocaleDateString(undefined,{month:'long',year:'numeric'}),node=document.getElementById('publicCalendar');
-node.innerHTML='<div class="public-cal-head"><button class="public-cal-nav" type="button" data-month="-1" aria-label="Previous month">‹</button><h3>'+title+'</h3><button class="public-cal-nav" type="button" data-month="1" aria-label="Next month">›</button></div><div class="public-cal-grid">'+['M','T','W','T','F','S','S'].map(function(x){return '<div class="public-cal-week">'+x+'</div>';}).join('')+cells+'</div>';
+node.innerHTML='<div class="public-cal-head"><button class="public-cal-nav" type="button" data-month="-1" aria-label="Previous month">‹</button><h3>'+title+'</h3><button class="public-cal-nav" type="button" data-month="1" aria-label="Next month">›</button></div><div class="public-cal-grid">'+['M','T','W','T','F','S','S'].map(function(x){return '<div class="public-cal-week">'+x+'</div>';}).join('')+cells+'</div><div class="public-legend"><span><i class="check-key"></i>Checked in</span><span><i></i>Slip</span><span><i class="won-key"></i>Won urge</span></div>';
 node.querySelectorAll('[data-month]').forEach(function(b){b.addEventListener('click',function(){month.setMonth(month.getMonth()+Number(b.dataset.month));selectedDay=key(new Date(month.getFullYear(),month.getMonth(),1));renderCalendar();renderSelectedDay();});});
 node.querySelectorAll('[data-day]').forEach(function(b){b.addEventListener('click',function(){selectedDay=b.dataset.day;renderCalendar();renderSelectedDay();});});
 }
+function checkinMarkup(c){
+var mood=MOODS[Math.max(0,Math.min(4,Number(c.mood||1)-1))],urgeLevel=Math.max(0,Math.min(10,Number(c.urge)||0)),triggers=Array.isArray(c.triggers)?c.triggers:[];
+return '<details class="timeline-details"><summary>View full check-in</summary><div class="checkin-body"><div class="checkin-topline"><span class="checkin-mood">'+esc(mood)+'</span><strong class="checkin-urge-value">Urge '+urgeLevel+'/10</strong></div><div class="checkin-meter" aria-label="Urge level '+urgeLevel+' out of 10">'+Array.from({length:10},function(_,i){return '<i class="'+(i<urgeLevel?'filled':'')+'"></i>';}).join('')+'</div><div><div class="checkin-detail-label">TRIGGERS</div>'+(triggers.length?'<div class="checkin-tags">'+triggers.map(function(t){return '<span class="checkin-tag">'+esc(t)+'</span>';}).join('')+'</div>':'<span class="timeline-time">No triggers recorded</span>')+'</div><div><div class="checkin-detail-label">NOTE</div><div class="checkin-note">'+(c.note?esc(c.note):'<span class="timeline-time">No note</span>')+'</div></div></div></details>';
+}
 function renderSelectedDay(){
 var node=document.getElementById('selectedDay');if(!node)return;
-var d=new Date(selectedDay+'T12:00:00');
-node.innerHTML='<h3>'+d.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'})+'</h3><div class="day-counts"><div class="day-count"><strong>'+countOn(checkinDays,selectedDay)+'</strong><span>Check-ins</span></div></div>';
+var d=new Date(selectedDay+'T12:00:00+08:00'),daySlips=slips[selectedDay]||[],dayWon=won[selectedDay]||[],check=checkins[selectedDay]||null,events=[];
+daySlips.forEach(function(x){events.push({type:'slip',t:Number(x.t)});});
+dayWon.forEach(function(x){events.push({type:'won',t:Number(x.t)});});
+if(check)events.push({type:'checkin',t:Number(check.t),record:check});
+events=events.filter(function(x){return Number.isFinite(x.t)&&x.t>0;}).sort(function(a,b){return a.t-b.t;});
+var timeline=events.length?'<ol class="timeline">'+events.map(function(e){
+var label=e.type==='slip'?'Slip':e.type==='won'?'Won urge':'Check-in';
+return '<li class="timeline-item '+e.type+'"><div class="timeline-head"><span class="timeline-time">'+clock(e.t)+'</span><span class="timeline-title">'+label+'</span></div>'+(e.type==='checkin'?checkinMarkup(e.record):'')+'</li>';
+}).join('')+'</ol>':'<p class="timeline-empty">No activity recorded for this day.</p>';
+node.innerHTML='<h3>'+d.toLocaleDateString(undefined,{timeZone:'Asia/Manila',weekday:'long',month:'long',day:'numeric',year:'numeric'})+'</h3><div class="day-counts"><div class="day-count"><strong>'+daySlips.length+'</strong><span>Slips</span></div><div class="day-count"><strong>'+dayWon.length+'</strong><span>Won urges</span></div><div class="day-count"><strong>'+(check?1:0)+'</strong><span>Check-in</span></div></div><h4 style="font-size:14px;margin:17px 0 0">Daily activity</h4>'+timeline;
 }
-
 function renderProgress(p){
 if(!p||p.public!==true)throw new Error('not published');
-payload=p;checkinDays={};
-(Array.isArray(p.checkinDates)?p.checkinDates:[]).forEach(function(v){if(/^\d{4}-\d{2}-\d{2}$/.test(v))checkinDays[v]=(checkinDays[v]||0)+1;});
+payload=p;checkins={};slips={};won={};
+(p.checkins&&typeof p.checkins==='object'?Object.keys(p.checkins):[]).forEach(function(k){var c=p.checkins[k];if(/^\d{4}-\d{2}-\d{2}$/.test(k)&&c&&typeof c==='object')checkins[k]=c;});
+function group(items,target){(Array.isArray(items)?items:[]).forEach(function(v){var t=Number(v&&v.t);if(!Number.isFinite(t)||t<=0)return;var k=key(new Date(t));(target[k]||(target[k]=[])).push({t:t});});Object.keys(target).forEach(function(k){target[k].sort(function(a,b){return a.t-b.t;});});}
+group(p.slips,slips);group(p.wonUrges,won);
 var milestones=Array.isArray(p.milestones)?p.milestones:[];
-el.innerHTML='<section class="public-card public-hero"><div class="public-label">Current streak</div><div class="public-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="public-ring-track" cx="60" cy="60" r="54"></circle><circle class="public-ring-arc" cx="60" cy="60" r="54" transform="rotate(-90 60 60)"></circle></svg><div class="public-ring-mid"><strong class="public-number" id="publicStreakDays">'+Math.max(0,Number(p.currentStreakDays)||0)+'</strong><span class="public-unit">days</span></div></div><p class="public-start">Started '+(date(p.startDate)||'—')+'</p></section><div class="public-stats"><div class="public-stat"><strong>'+Math.max(0,Number(p.daysWithSlip)||0)+'</strong><span>Days with slip</span></div><div class="public-stat"><strong>'+Math.max(0,Number(p.totalRelapses)||0)+'</strong><span>Total slips</span></div><div class="public-stat"><strong>'+Math.max(0,Number(p.totalWonUrges)||0)+'</strong><span>Won urges</span></div><div class="public-stat"><strong>'+Math.max(0,Number(p.totalCheckins)||0)+'</strong><span>Check-ins</span></div></div><section class="public-card"><h2>Activity calendar</h2><p class="public-sub">Tap a date to see that day’s counts.</p><div id="publicCalendar"></div><div id="selectedDay" class="selected-day"></div></section><section class="public-card"><h2>Milestones</h2><p class="public-sub">Every step forward matters.</p><ul class="public-milestones">'+(milestones.length?milestones.map(function(m){return '<li><span>'+esc(m.name)+'</span><strong>Reached ✓</strong></li>';}).join(''):'<li><span>Your next milestone is ahead.</span></li>')+'</ul><p class="public-updated">Last updated '+(date(p.updatedAt)||'—')+'</p></section>';
+el.innerHTML='<section class="public-card public-hero"><div class="public-label">Current streak</div><div class="public-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="public-ring-track" cx="60" cy="60" r="54"></circle><circle class="public-ring-arc" cx="60" cy="60" r="54" transform="rotate(-90 60 60)"></circle></svg><div class="public-ring-mid"><strong class="public-number" id="publicStreakDays">'+Math.max(0,Number(p.currentStreakDays)||0)+'</strong><span class="public-unit">days</span></div></div><p class="public-start">Started '+(date(p.startDate)||'—')+'</p></section><div class="public-stats"><div class="public-stat"><strong>'+Math.max(0,Number(p.daysWithSlip)||0)+'</strong><span>Days with slip</span></div><div class="public-stat"><strong>'+Math.max(0,Number(p.totalRelapses)||0)+'</strong><span>Total slips</span></div><div class="public-stat"><strong>'+Math.max(0,Number(p.totalWonUrges)||0)+'</strong><span>Won urges</span></div><div class="public-stat"><strong>'+Math.max(0,Number(p.totalCheckins)||0)+'</strong><span>Check-ins</span></div></div><section class="public-card"><h2>Activity calendar</h2><p class="public-sub">A lighter date means you checked in. Dots show slips and won urges.</p><div id="publicCalendar"></div><div id="selectedDay" class="selected-day"></div></section><section class="public-card"><h2>Milestones</h2><p class="public-sub">Every step forward matters.</p><ul class="public-milestones">'+(milestones.length?milestones.map(function(m){return '<li><span>'+esc(m.name)+'</span><strong>Reached ✓</strong></li>';}).join(''):'<li><span>Your next milestone is ahead.</span></li>')+'</ul><p class="public-updated">Last updated '+(date(p.updatedAt)||'—')+'</p></section>';
 renderCalendar();renderSelectedDay();el.dataset.loaded='true';
 }
 function loadProgress(){fetch('progress.json?'+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('not published');return r.json();}).then(renderProgress).catch(function(){if(!el.dataset.loaded)el.innerHTML='<div class="public-error"><h2>Progress is not available</h2><p class="muted">The latest public progress snapshot has not been published yet. Try again shortly.</p></div>';});}
