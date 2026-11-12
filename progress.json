@@ -1,15 +1,40 @@
 {
   "public": true,
-  "currentStreakDays": 0,
+  "currentStreakDays": 1,
   "startDate": "2026-11-12",
-  "milestones": [],
-  "totalRelapses": 0,
-  "daysWithSlip": 0,
-  "totalWonUrges": 0,
-  "totalCheckins": 0,
-  "checkinDates": [],
-  "slips": [],
-  "wonUrges": [],
-  "checkins": {},
-  "updatedAt": "2026-11-12"
+  "milestones": [
+    {
+      "days": 1,
+      "name": "Locked in"
+    }
+  ],
+  "totalRelapses": 2,
+  "daysWithSlip": 1,
+  "totalWonUrges": 1,
+  "totalCheckins": 1,
+  "slips": [
+    {
+      "t": 1794459619627
+    },
+    {
+      "t": 1794459603465
+    }
+  ],
+  "wonUrges": [
+    {
+      "t": 1794459610781
+    }
+  ],
+  "checkins": {
+    "2026-11-12": {
+      "mood": 1,
+      "urge": 10,
+      "triggers": [
+        "Alone in my room"
+      ],
+      "note": "horny asf",
+      "t": 1794459595242
+    }
+  },
+  "updatedAt": "2026-11-13"
 }
