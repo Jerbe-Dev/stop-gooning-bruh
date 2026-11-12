@@ -8,5 +8,8 @@
   "totalWonUrges": 0,
   "totalCheckins": 0,
   "checkinDates": [],
+  "slips": [],
+  "wonUrges": [],
+  "checkins": {},
   "updatedAt": "2026-11-12"
 }
