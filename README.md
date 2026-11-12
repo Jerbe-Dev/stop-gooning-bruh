@@ -12,9 +12,9 @@ There is no Goon Logbook account, advertising, or app analytics. The app uses a 
 - Urge reset timer and distraction picker
 - One editable check-in per day
 - Calendar, slip history, won urges, and milestones
-- Optional public Progress page with aggregate totals and check-in dates only
+- Optional public Progress page with aggregate totals, slip and won-urge timestamps, and complete daily check-ins
 
-**Privacy note:** The public Progress page publishes the streak start date, progress totals, the aggregate number of days with a slip, and check-in dates. Individual slip dates, won-urge dates, check-in mood, urge levels, triggers, and notes are not published.
+**Privacy note:** The public Progress page publishes the streak start date and progress totals, individual slip timestamps (time only), won-urge timestamps, and complete daily check-ins including mood, urge level, triggers, and notes. Slip notes, slip triggers, and selected won-urge activities are not published. Anyone with the public link can view these published details.
 
 ## Project files
 
