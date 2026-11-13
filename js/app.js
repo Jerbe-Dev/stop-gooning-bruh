@@ -595,7 +595,7 @@ function slipHtml(){
 function renderAll(){
   renderToday();renderJourney();renderLog();renderMore();
   renderUrge();
-  if(urge.mode==='active')urgeTick();
+  if(urge.mode==='active'){if(!urgeTimer)urgeTimer=setInterval(urgeTick,250);urgeTick();}
 }
 function setTab(name){
   currentTab=name;
