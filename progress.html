@@ -109,8 +109,8 @@ for(var i=0;i<42;i++){
  var sc=countOn(slips,k),wc=countOn(won,k),checked=!!checkins[k];
  var cls='public-cal-day'+(!inside?' outside':'')+(checked?' checked-in':'')+(k===selectedDay?' selected':'');
  var marks='';
- if(sc)marks+='<span class="activity-mark slip"><i>'+(sc>1?sc:'')+'</i></span>';
- if(wc)marks+='<span class="activity-mark won"><i>'+(wc>1?wc:'')+'</i></span>';
+ if(sc)marks+='<span class="activity-mark slip"><i>'+sc+'</i></span>';
+ if(wc)marks+='<span class="activity-mark won"><i>'+wc+'</i></span>';
  cells+='<button type="button" class="'+cls+'" data-day="'+k+'" aria-pressed="'+(k===selectedDay)+'" aria-label="'+k+(checked?', checked in':'')+', '+sc+' slips, '+wc+' won urges"><span>'+d.getDate()+'</span><span class="activity-marks">'+marks+'</span></button>';
 }
 var title=new Intl.DateTimeFormat(undefined,{month:'long',year:'numeric',timeZone:'UTC'}).format(month),node=document.getElementById('publicCalendar');
