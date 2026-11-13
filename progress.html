@@ -38,8 +38,8 @@
 .public-cal-day.outside{visibility:hidden}
 .public-cal-day .activity-marks{display:flex;align-items:center;justify-content:center;gap:5px;min-height:12px;white-space:nowrap}
 .public-cal-day .activity-mark{display:inline-flex;align-items:center;gap:2px;font-size:9px;line-height:1;color:var(--fg);font-variant-numeric:tabular-nums}
-.public-cal-day .activity-mark i{width:7px;height:7px;border-radius:50%;display:inline-block;background:#000;box-shadow:0 0 0 1px #c9c7c7}
-.public-cal-day .activity-mark.won i{background:#c9c7c7;box-shadow:0 0 0 1px #5c5959}
+.public-cal-day .activity-mark i{width:14px;height:14px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-style:normal;font-size:8px;font-weight:700;line-height:1;background:#000;color:#c9c7c7;box-shadow:0 0 0 1px #c9c7c7}
+.public-cal-day .activity-mark.won i{background:#c9c7c7;color:#5c5959;box-shadow:0 0 0 1px #5c5959}
 .public-cal-day:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .public-legend{display:flex;flex-wrap:wrap;gap:8px 15px;margin-top:12px;font-size:11px;color:var(--muted)}
 .public-legend span{display:inline-flex;align-items:center;gap:6px}
@@ -109,8 +109,8 @@ for(var i=0;i<42;i++){
  var sc=countOn(slips,k),wc=countOn(won,k),checked=!!checkins[k];
  var cls='public-cal-day'+(!inside?' outside':'')+(checked?' checked-in':'')+(k===selectedDay?' selected':'');
  var marks='';
- if(sc)marks+='<span class="activity-mark slip"><i></i>'+(sc>1?sc:'')+'</span>';
- if(wc)marks+='<span class="activity-mark won"><i></i>'+(wc>1?wc:'')+'</span>';
+ if(sc)marks+='<span class="activity-mark slip"><i>'+(sc>1?sc:'')+'</i></span>';
+ if(wc)marks+='<span class="activity-mark won"><i>'+(wc>1?wc:'')+'</i></span>';
  cells+='<button type="button" class="'+cls+'" data-day="'+k+'" aria-pressed="'+(k===selectedDay)+'" aria-label="'+k+(checked?', checked in':'')+', '+sc+' slips, '+wc+' won urges"><span>'+d.getDate()+'</span><span class="activity-marks">'+marks+'</span></button>';
 }
 var title=new Intl.DateTimeFormat(undefined,{month:'long',year:'numeric',timeZone:'UTC'}).format(month),node=document.getElementById('publicCalendar');
