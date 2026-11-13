@@ -131,7 +131,10 @@ function copyText(text,src){
 /* ---------- state for UI ---------- */
 var draft=null, editingCheckin=false, reasonIdx=Math.floor(Date.now()/DAY);
 var slip={triggers:[],note:''};
+var URGE_KEY='cleanslate.urge.timer.v1';
 var urge={mode:'idle',startedAt:0,endsAt:0,done:[],picked:''}, urgeTimer=null;
+function persistUrge(){try{if(urge.mode==='active'||urge.mode==='ended')localStorage.setItem(URGE_KEY,JSON.stringify({mode:urge.mode,startedAt:urge.startedAt,endsAt:urge.endsAt,picked:urge.picked||''}));else localStorage.removeItem(URGE_KEY);}catch(e){}}
+function restoreUrge(){try{var raw=localStorage.getItem(URGE_KEY);if(!raw)return;var saved=JSON.parse(raw);if(!saved||!['active','ended'].includes(saved.mode)||!Number.isFinite(saved.endsAt)||!Number.isFinite(saved.startedAt))return;urge={mode:saved.endsAt<=Date.now()?'ended':saved.mode,startedAt:saved.startedAt,endsAt:saved.endsAt,done:[],picked:saved.picked||''};persistUrge();}catch(e){}}
 var restoreArmed=false, resetArmed=false, lastDay=dayKey(Date.now());
 var currentTab='today';
 var calendarMonth=new Date(new Date().getFullYear(),new Date().getMonth(),1);
@@ -280,14 +283,14 @@ function actBars(){
 }
 function urgeStart(){
   clearInterval(urgeTimer);
-  urge={mode:'active',startedAt:Date.now(),endsAt:Date.now()+10*MIN,done:[],picked:urge.picked||''};
-  renderUrge();
+  var now=Date.now();urge={mode:'active',startedAt:now,endsAt:now+10*MIN,done:[],picked:urge.picked||''};
+  persistUrge();renderUrge();
   urgeTimer=setInterval(urgeTick,250);
   urgeTick();
 }
 function urgeTick(){
   var rem=urge.endsAt-Date.now();
-  if(rem<=0){clearInterval(urgeTimer);urge.mode='ended';renderUrge();return;}
+  if(rem<=0){clearInterval(urgeTimer);urge.mode='ended';persistUrge();renderUrge();return;}
   var c=$('#urgeClock');if(!c)return;
   c.textContent=pad(Math.floor(rem/MIN))+':'+pad(Math.floor(rem%MIN/1000));
   $('#urgeBar').style.width=((1-rem/(10*MIN))*100)+'%';
@@ -295,9 +298,9 @@ function urgeTick(){
   $('#breathText').textContent=s<4?'Breathe in':'Breathe out';
 }
 function urgeWin(){
-  clearInterval(urgeTimer);
+  clearInterval(urgeTimer);persistUrge();
   S.urges.push({t:Date.now(),act:urge.picked||''});save();
-  urge.mode='won';renderUrge();renderLog();
+  urge.mode='won';persistUrge();renderUrge();renderLog();
 }
 
 /* ---------- Journey ---------- */
@@ -591,7 +594,8 @@ function slipHtml(){
 /* ---------- tabs / render ---------- */
 function renderAll(){
   renderToday();renderJourney();renderLog();renderMore();
-  if(urge.mode!=='active')renderUrge();
+  renderUrge();
+  if(urge.mode==='active')urgeTick();
 }
 function setTab(name){
   currentTab=name;
@@ -650,18 +654,18 @@ document.addEventListener('click',function(e){
     S.relapses.unshift({t:now,streakMs:elapsed(),triggers:slip.triggers.slice(),note:slip.note.trim().slice(0,300)});
     S.start=now;S._startUpdatedAt=now;
     save();
-    clearInterval(urgeTimer);urge={mode:'idle',startedAt:0,endsAt:0,done:[]};
+    clearInterval(urgeTimer);urge={mode:'idle',startedAt:0,endsAt:0,done:[]};persistUrge();persistUrge();
     closeSheet();renderAll();setTab('today');
     toast('Slip recorded. Syncing streak to cloud…');
   }
   else if(a==='urgeStart'){urgeStart();}
-  else if(a==='urgeStop'){clearInterval(urgeTimer);urge.mode='idle';renderUrge();}
+  else if(a==='urgeStop'){clearInterval(urgeTimer);urge.mode='idle';persistUrge();renderUrge();}
   else if(a==='urgeWin'){urgeWin();}
-  else if(a==='urgeReset'){urge.mode='idle';urge.picked='';renderUrge();}
-  else if(a==='pick'){urge.picked=(urge.picked===t.dataset.v)?'':t.dataset.v;renderPicker();}
+  else if(a==='urgeReset'){urge.mode='idle';urge.picked='';persistUrge();renderUrge();}
+  else if(a==='pick'){urge.picked=(urge.picked===t.dataset.v)?'':t.dataset.v;persistUrge();renderPicker();}
   else if(a==='surprise'){
     var cand=allActs().filter(function(x){return x.n!==urge.picked;});
-    urge.picked=cand[Math.floor(Math.random()*cand.length)].n;renderPicker();
+    urge.picked=cand[Math.floor(Math.random()*cand.length)].n;persistUrge();renderPicker();
   }
   else if(a==='addAct'){addAct(document.getElementById('actIn'));}
   else if(a==='delAct'){
@@ -697,6 +701,7 @@ document.addEventListener('keydown',function(e){
 window.addEventListener('pagehide',function(){if(cloudSyncReady){clearTimeout(cloudSyncTimer);cloudSyncTimer=null;runCloudSync(true);}});
 document.addEventListener('visibilitychange',function(){if(!document.hidden){tick();if(cloudSyncReady)runCloudSync(false);}});
 
+restoreUrge();
 if(initAccess()){
   renderAll();
   setTab(['today','urge','journey','log','more'].indexOf(S.tab)>-1?S.tab:'today');
