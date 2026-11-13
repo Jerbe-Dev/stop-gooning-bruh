@@ -134,8 +134,10 @@ var draft=null, editingCheckin=false, reasonIdx=Math.floor(Date.now()/DAY);
 var slip={triggers:[],note:''};
 var URGE_KEY='cleanslate.urge.timer.v1';
 var urge={mode:'idle',startedAt:0,endsAt:0,done:[],picked:''}, urgeTimer=null;
-function persistUrge(){try{if(urge.mode==='active'||urge.mode==='ended')localStorage.setItem(URGE_KEY,JSON.stringify({mode:urge.mode,startedAt:urge.startedAt,endsAt:urge.endsAt,picked:urge.picked||''}));else localStorage.removeItem(URGE_KEY);}catch(e){}}
-function restoreUrge(){try{var raw=localStorage.getItem(URGE_KEY);if(!raw)return;var saved=JSON.parse(raw);if(!saved||!['active','ended'].includes(saved.mode)||!Number.isFinite(saved.endsAt)||!Number.isFinite(saved.startedAt))return;urge={mode:saved.endsAt<=Date.now()?'ended':saved.mode,startedAt:saved.startedAt,endsAt:saved.endsAt,done:[],picked:saved.picked||''};persistUrge();}catch(e){}}
+function urgeCookie(value){try{var name=URGE_KEY+'=';if(value===null){document.cookie=name+'; Max-Age=0; Path=/stop-gooning-bruh/; SameSite=Lax; Secure';return;}document.cookie=name+encodeURIComponent(value)+'; Max-Age=86400; Path=/stop-gooning-bruh/; SameSite=Lax; Secure';}catch(e){}}
+function readUrgeCookie(){try{var name=URGE_KEY+'=';var item=document.cookie.split(';').map(function(x){return x.trim();}).filter(function(x){return x.indexOf(name)===0;})[0];return item?decodeURIComponent(item.slice(name.length)):'';}catch(e){return '';}}
+function persistUrge(){try{if(urge.mode==='active'||urge.mode==='ended'){var value=JSON.stringify({mode:urge.mode,startedAt:urge.startedAt,endsAt:urge.endsAt,picked:urge.picked||''});try{localStorage.setItem(URGE_KEY,value);}catch(e){}urgeCookie(value);}else{try{localStorage.removeItem(URGE_KEY);}catch(e){}urgeCookie(null);}}catch(e){}}
+function restoreUrge(){try{var raw='';try{raw=localStorage.getItem(URGE_KEY)||'';}catch(e){}if(!raw)raw=readUrgeCookie();if(!raw)return;var saved=JSON.parse(raw);if(!saved||!['active','ended'].includes(saved.mode)||!Number.isFinite(saved.endsAt)||!Number.isFinite(saved.startedAt))return;urge={mode:saved.endsAt<=Date.now()?'ended':saved.mode,startedAt:saved.startedAt,endsAt:saved.endsAt,done:[],picked:saved.picked||''};persistUrge();}catch(e){}}
 var restoreArmed=false, resetArmed=false, lastDay=dayKey(Date.now());
 var currentTab='today';
 var calendarMonth=new Date(new Date().getFullYear(),new Date().getMonth(),1);
@@ -252,7 +254,7 @@ function renderUrge(){
 function allActs(){return ACTS.concat(S.activities.map(function(n){return {n:n,h:'Your own pick'};}));}
 function pickerHtml(){
   var all=allActs(),p=urge.picked||'';
-  var cur=all.filter(function(x){return x.n===p;})[0];
+  var cur=all.filter(function(x){return x.n===p;})[0]||(p?{n:p,h:'Your one-time pick'}:null);
   return (cur?'<div class="now"><div class="lbl">Doing now</div><b>'+esc(cur.n)+'</b><span>'+esc(cur.h)+'</span></div>':'')+
     '<div class="picks">'+all.map(function(x){
       var on=x.n===p;
@@ -268,11 +270,10 @@ function renderPicker(){var b=$('#pickerBox');if(b)b.innerHTML=pickerHtml();}
 function addAct(inp){
   var v=(inp&&inp.value||'').trim();
   if(!v){toast('Write an activity first');return;}
-  if(S.activities.length>=10){toast('Ten of your own is plenty. Remove one in More.');return;}
-  var dup=allActs().some(function(x){return x.n.toLowerCase()===v.toLowerCase();});
-  if(dup){toast('That one is already in the list');return;}
-  S.activities.push(v.slice(0,40));S._activityAddedAt[v.slice(0,40)]=Date.now();save();
-  urge.picked=v.slice(0,40);renderPicker();renderMore();
+  var existing=allActs().filter(function(x){return x.n.toLowerCase()===v.toLowerCase();})[0];
+  urge.picked=existing?existing.n:v.slice(0,40);
+  persistUrge();renderPicker();
+  toast(existing?'Activity selected':'One-time activity selected');
 }
 function actBars(){
   var cnt={};
