@@ -52,6 +52,7 @@ function hasLocalCopy(){try{var raw=localStorage.getItem(KEY);if(!raw)return fal
 function finishUnlock(c){
   c.owner='Jerbe-Dev';c.repo='stop-gooning-bruh-cloud';c.branch='main';
   saveSyncConfig(c);cloudSyncReady=true;
+  restoreUrge();
   document.body.classList.remove('locked');
   var lock=$('#lockScreen');if(lock)lock.remove();
   renderAll();setTab(['today','urge','journey','log','more'].indexOf(S.tab)>-1?S.tab:'today');
@@ -698,8 +699,9 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Enter'&&e.target.classList&&e.target.classList.contains('reason-in'))addReason(e.target);
   if(e.key==='Enter'&&e.target.classList&&e.target.classList.contains('act-in'))addAct(e.target);
 });
-window.addEventListener('pagehide',function(){if(cloudSyncReady){clearTimeout(cloudSyncTimer);cloudSyncTimer=null;runCloudSync(true);}});
-document.addEventListener('visibilitychange',function(){if(!document.hidden){tick();if(cloudSyncReady)runCloudSync(false);}});
+window.addEventListener('pagehide',function(){persistUrge();if(cloudSyncReady){clearTimeout(cloudSyncTimer);cloudSyncTimer=null;runCloudSync(true);}});
+window.addEventListener('pageshow',function(){if(urge.mode==='active'){urgeTick();if(urge.mode==='active'&&!urgeTimer)urgeTimer=setInterval(urgeTick,250);}});
+document.addEventListener('visibilitychange',function(){if(urge.mode==='active')urgeTick();if(!document.hidden){tick();if(cloudSyncReady)runCloudSync(false);}});
 
 restoreUrge();
 if(initAccess()){
