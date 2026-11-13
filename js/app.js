@@ -261,7 +261,7 @@ function pickerHtml(){
       return '<button type="button" class="pk'+(on?' on':'')+'" data-act="pick" data-v="'+esc(x.n)+'" aria-pressed="'+on+'"><b>'+esc(x.n)+'</b><span>'+esc(x.h)+'</span></button>';
     }).join('')+'</div>'+
     '<button class="btn btn-ghost wide" type="button" data-act="surprise">Surprise me</button>'+
-    '<div class="row"><input type="text" id="actIn" class="act-in" maxlength="40" placeholder="Add your own" aria-label="Add your own distraction"><button class="btn btn-primary" type="button" data-act="addAct">Add</button></div>';
+    '<div class="row"><input type="text" id="actIn" class="act-in" maxlength="40" placeholder="Something else…" aria-label="Custom activity"><button class="btn btn-primary" type="button" data-act="addAct">Use this</button></div>';
 }
 function pickerCard(){
   return '<div class="card"><h3>Pick something to do</h3><p class="muted sm">Choose one and do it until the timer ends. Tap it again to unpick.</p><div id="pickerBox">'+pickerHtml()+'</div></div>';
