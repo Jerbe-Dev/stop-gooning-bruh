@@ -235,9 +235,9 @@ function renderUrge(){
       '<div class="row2"><button class="btn btn-primary" type="button" data-act="urgeWin">The urge passed</button><button class="btn btn-ghost" type="button" data-act="urgeStop">Cancel</button></div>'+
       '<button class="btn-quiet" type="button" data-act="openSlip">I slipped</button>';
   }else if(urge.mode==='ended'){
-    h='<div class="card center"><h2>Ten minutes done</h2><p>Is the urge still there? Run another round, or log it if it has passed.</p>'+
-      '<button class="btn btn-primary wide" type="button" data-act="urgeWin">The urge passed</button>'+
-      '<button class="btn btn-ghost wide" type="button" data-act="urgeStart">Another 10 minutes</button></div>'+pickerCard()+reasonsBlock()+
+    h='<div class="card center"><h2>Ten minutes done</h2><p>Did you get through the urge without giving in?</p>'+
+      '<button class="btn btn-primary wide" type="button" data-act="urgeWin">Yes, I resisted</button>'+
+      '<button class="btn btn-ghost wide" type="button" data-act="urgeStart">No, not yet — another 10 minutes</button></div>'+pickerCard()+reasonsBlock()+
       '<button class="btn-quiet" type="button" data-act="openSlip">I slipped</button>';
   }else{
     h='<div class="card center"><h2>You got through it</h2><p>That is '+S.urges.length+' urge'+(S.urges.length===1?'':'s')+' you rode out. Go do something else for a while.</p>'+
