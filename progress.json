@@ -10,7 +10,7 @@
   ],
   "totalRelapses": 3,
   "daysWithSlip": 2,
-  "totalWonUrges": 0,
+  "totalWonUrges": 1,
   "totalCheckins": 2,
   "slips": [
     {
@@ -23,7 +23,11 @@
       "t": 1794478530218
     }
   ],
-  "wonUrges": [],
+  "wonUrges": [
+    {
+      "t": 1794587854137
+    }
+  ],
   "checkins": {
     "2026-11-12": {
       "mood": 3,
