@@ -6,7 +6,7 @@
   "totalRelapses": 7,
   "daysWithSlip": 5,
   "totalWonUrges": 1,
-  "totalCheckins": 4,
+  "totalCheckins": 5,
   "slips": [
     {
       "t": 1794808496293
@@ -71,6 +71,15 @@
       ],
       "note": "too sad to goon bruh, maybe i should be sad more often so i can finally stop doin this",
       "t": 1794842912417
+    },
+    "2026-11-14": {
+      "mood": 1,
+      "urge": 6,
+      "triggers": [
+        "Stress"
+      ],
+      "note": "stressed at vibecoding",
+      "t": 1794628800000
     }
   },
   "updatedAt": "2026-11-16"
