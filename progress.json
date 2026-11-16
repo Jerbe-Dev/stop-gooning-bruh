@@ -6,7 +6,7 @@
   "totalRelapses": 7,
   "daysWithSlip": 5,
   "totalWonUrges": 1,
-  "totalCheckins": 3,
+  "totalCheckins": 4,
   "slips": [
     {
       "t": 1794808496293
@@ -62,6 +62,15 @@
       ],
       "note": "",
       "t": 1794758363639
+    },
+    "2026-11-16": {
+      "mood": 2,
+      "urge": 2,
+      "triggers": [
+        "Loneliness"
+      ],
+      "note": "too sad to goon bruh, maybe i should be sad more often so i can finally stop doin this",
+      "t": 1794842874885
     }
   },
   "updatedAt": "2026-11-16"
