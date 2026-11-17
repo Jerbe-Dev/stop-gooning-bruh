@@ -6,7 +6,7 @@
   "totalRelapses": 9,
   "daysWithSlip": 6,
   "totalWonUrges": 1,
-  "totalCheckins": 5,
+  "totalCheckins": 6,
   "slips": [
     {
       "t": 1794903417207
@@ -86,6 +86,17 @@
       ],
       "note": "stressed at vibecoding",
       "t": 1794671220000
+    },
+    "2026-11-17": {
+      "mood": 1,
+      "urge": 10,
+      "triggers": [
+        "Stress",
+        "Loneliness",
+        "Tired"
+      ],
+      "note": "",
+      "t": 1794930471963
     }
   },
   "updatedAt": "2026-11-17"
