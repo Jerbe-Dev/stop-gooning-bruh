@@ -6,7 +6,7 @@
   "totalRelapses": 14,
   "daysWithSlip": 8,
   "totalWonUrges": 1,
-  "totalCheckins": 7,
+  "totalCheckins": 8,
   "slips": [
     {
       "t": 1795096508018
@@ -123,6 +123,18 @@
       ],
       "note": "",
       "t": 1795016220000
+    },
+    "2026-11-19": {
+      "mood": 1,
+      "urge": 10,
+      "triggers": [
+        "Stress",
+        "Loneliness",
+        "Tired",
+        "Anxiety"
+      ],
+      "note": "gooned to meimei's boobies 3 times today bro",
+      "t": 1795098869126
     }
   },
   "updatedAt": "2026-11-19"
