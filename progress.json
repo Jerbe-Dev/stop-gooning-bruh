@@ -6,7 +6,7 @@
   "totalRelapses": 12,
   "daysWithSlip": 8,
   "totalWonUrges": 1,
-  "totalCheckins": 6,
+  "totalCheckins": 7,
   "slips": [
     {
       "t": 1795053823794
@@ -106,6 +106,17 @@
       ],
       "note": "",
       "t": 1794930471963
+    },
+    "2026-11-18": {
+      "mood": 1,
+      "urge": 10,
+      "triggers": [
+        "Stress",
+        "Loneliness",
+        "Tired"
+      ],
+      "note": "",
+      "t": 1795016220000
     }
   },
   "updatedAt": "2026-11-19"
