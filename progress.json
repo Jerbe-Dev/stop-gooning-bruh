@@ -1,13 +1,16 @@
 {
   "public": true,
   "currentStreakDays": 0,
-  "startDate": "2026-11-20",
+  "startDate": "2026-11-21",
   "milestones": [],
-  "totalRelapses": 15,
-  "daysWithSlip": 9,
+  "totalRelapses": 16,
+  "daysWithSlip": 10,
   "totalWonUrges": 1,
   "totalCheckins": 9,
   "slips": [
+    {
+      "t": 1795197929134
+    },
     {
       "t": 1795146403707
     },
@@ -149,5 +152,5 @@
       "t": 1795190372014
     }
   },
-  "updatedAt": "2026-11-20"
+  "updatedAt": "2026-11-21"
 }
