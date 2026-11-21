@@ -6,7 +6,7 @@
   "totalRelapses": 18,
   "daysWithSlip": 10,
   "totalWonUrges": 1,
-  "totalCheckins": 9,
+  "totalCheckins": 10,
   "slips": [
     {
       "t": 1795256984903
@@ -156,6 +156,15 @@
       ],
       "note": "",
       "t": 1795190372014
+    },
+    "2026-11-21": {
+      "mood": 4,
+      "urge": 8,
+      "triggers": [
+        "Loneliness"
+      ],
+      "note": "",
+      "t": 1795276768561
     }
   },
   "updatedAt": "2026-11-21"
