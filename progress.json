@@ -1,11 +1,16 @@
 {
   "public": true,
-  "currentStreakDays": 0,
+  "currentStreakDays": 1,
   "startDate": "2026-11-22",
-  "milestones": [],
+  "milestones": [
+    {
+      "days": 1,
+      "name": "Locked in"
+    }
+  ],
   "totalRelapses": 19,
   "daysWithSlip": 11,
-  "totalWonUrges": 1,
+  "totalWonUrges": 2,
   "totalCheckins": 11,
   "slips": [
     {
@@ -69,6 +74,9 @@
   "wonUrges": [
     {
       "t": 1794587854137
+    },
+    {
+      "t": 1795368126581
     }
   ],
   "checkins": {
@@ -179,5 +187,5 @@
       "t": 1795359964730
     }
   },
-  "updatedAt": "2026-11-22"
+  "updatedAt": "2026-11-23"
 }
