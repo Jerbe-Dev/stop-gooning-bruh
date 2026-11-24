@@ -1,6 +1,6 @@
 {
   "public": true,
-  "currentStreakDays": 1,
+  "currentStreakDays": 2,
   "startDate": "2026-11-22",
   "milestones": [
     {
@@ -196,5 +196,5 @@
       "t": 1795448022665
     }
   },
-  "updatedAt": "2026-11-23"
+  "updatedAt": "2026-11-24"
 }
