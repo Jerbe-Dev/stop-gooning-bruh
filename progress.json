@@ -1,11 +1,15 @@
 {
   "public": true,
-  "currentStreakDays": 2,
+  "currentStreakDays": 3,
   "startDate": "2026-11-22",
   "milestones": [
     {
       "days": 1,
       "name": "Locked in"
+    },
+    {
+      "days": 3,
+      "name": "Finding footing"
     }
   ],
   "totalRelapses": 19,
@@ -205,5 +209,5 @@
       "t": 1795534821307
     }
   },
-  "updatedAt": "2026-11-24"
+  "updatedAt": "2026-11-25"
 }
