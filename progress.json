@@ -15,7 +15,7 @@
   "totalRelapses": 19,
   "daysWithSlip": 11,
   "totalWonUrges": 2,
-  "totalCheckins": 13,
+  "totalCheckins": 14,
   "slips": [
     {
       "t": 1795328713415
@@ -207,6 +207,13 @@
       ],
       "note": "",
       "t": 1795534821307
+    },
+    "2026-11-25": {
+      "mood": 2,
+      "urge": 6,
+      "triggers": [],
+      "note": "nasa labas whole day so i can't really goon",
+      "t": 1795618360253
     }
   },
   "updatedAt": "2026-11-25"
